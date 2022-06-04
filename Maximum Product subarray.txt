@@ -1,0 +1,35 @@
+class Solution{
+public:
+     long long maxx(long long a,long long b)
+     {
+         if(a>b)return a;
+         else return b;
+     }
+     long long minn(long long a,long long b)
+     {
+         if(a<b)return a;
+         else return b;
+     }
+     
+	// Function to find maximum product subarray
+	long long maxProduct(vector<int> nums, int n) {
+	    // code here
+	    
+
+    long long ma=nums[0];// it will give maximum till now
+    long long mi=nums[0];// minimum till now
+    long long ans=nums[0];
+    for(int i=1;i<n;++i)
+    {
+        if(nums[i]<0)
+        {
+            swap(ma,mi);// since we have to multiply the value with - so the max earlier will be the minimum now so swap is necessary
+        }
+        ma=maxx(nums[i],nums[i]*ma);// which will give max whether to include the previous calculated value or start from current number
+        mi=minn(nums[i],nums[i]*mi);// similar condition for minimum
+        ans=maxx(ans,ma);//keep storing max answer value
+    }
+    return ans;
+	    
+	}
+};

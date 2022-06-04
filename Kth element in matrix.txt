@@ -1,0 +1,41 @@
+
+int kthSmallest(int mat[MAX][MAX], int n, int k)
+{
+  //Your code here
+  
+  int lo=INT_MAX,hi=INT_MIN;
+  
+  for(int i=0;i<n;i++)
+  {
+      lo=min(lo,mat[i][0]);
+      hi=max(hi,mat[i][n-1]);
+  }
+  
+  int ans=-1;
+  while(lo<=hi)
+  {
+      int mid=(lo+hi)/2;
+      int placed=0;
+      for(int i=0;i<n;i++)
+      {
+          placed+=upper_bound(mat[i],mat[i]+n,mid)-mat[i];
+      }
+      if(placed<k)
+      {
+          lo=mid+1;ans=mid;
+      }
+      else
+      {
+          hi=mid-1;
+          
+      }
+  }
+  
+  
+  
+  if(ans==-1)
+  return mat[0][0];
+  else
+  return ans+1;
+  
+}

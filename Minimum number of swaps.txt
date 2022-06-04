@@ -1,0 +1,32 @@
+class Solution
+{
+public:
+    int minSwap(int arr[], int n, int k) {
+        // Complet the function
+        int cn=0;
+        for(int i=0;i<n;i++)
+        {if(arr[i]<=k)cn++;}
+        int l=0;
+        int cnos=0;
+        int mnsw=INT_MAX;
+        for(int i=0;i<cn;i++)
+        {
+            if(arr[i]>k)cnos++;
+        }
+        
+        for(int l=0,r=cn-1;r<n;)
+        {
+            mnsw=min(mnsw,cnos);
+            l++;r++;
+            if(arr[l-1]>k)cnos--;
+            if(arr[r]>k)cnos++;
+            
+            
+        }
+        
+        
+        return mnsw;
+        
+        
+    }
+};

@@ -1,0 +1,107 @@
+class Solution{
+  public:
+   
+    int mxareahis(int a[],int n)
+    {
+        int left[n],right[n];
+        left[0]=-1;
+        right[n-1]=-1;
+        stack<int> s;
+    int ans=INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            if(!s.empty())
+            {
+                if(a[s.top()]>=a[i])
+                { 
+                    while(!s.empty() && a[i]<=a[s.top()])
+                    s.pop();
+                    if(s.empty())
+                    left[i]=-1;
+                    else
+                    left[i]=s.top();
+                }
+                else
+                {
+                    left[i]=s.top();
+                }
+                
+            }
+            else
+            {
+                left[i]=-1;
+                
+            }
+           
+            s.push(i);
+        }
+        while(!s.empty())s.pop();
+       
+        for(int i=n-1;i>=0;i--)
+        {
+            
+            if(!s.empty())
+            {
+                if(a[s.top()]>=a[i])
+                { 
+                    while(!s.empty() && a[i]<=a[s.top()])
+                    s.pop();
+                    if(s.empty())
+                    right[i]=n;
+                    else
+                    right[i]=s.top();
+                    
+                }
+                else
+                {
+                    right[i]=s.top();
+                }
+                
+            }
+            else
+            {
+                right[i]=n;
+                
+            }
+            s.push(i);
+            
+            
+        }
+        
+        
+        
+        for(int i=0;i<n;i++)
+        ans=max(ans,a[i]*(right[i]-left[i]-1));
+        
+        return ans;
+        
+        
+    }
+    
+    int maxArea(int M[MAX][MAX], int n, int m) {
+        // Your code here
+        
+        int mx=INT_MIN;
+        for(int j=0;j<m;j++)
+        for(int i=0;i<n;i++)
+        { if(i==0)continue;
+            if(M[i][j])
+            M[i][j]+=M[i-1][j];
+            else
+            M[i][j]=0;
+        }
+        
+        
+        for(int i=0;i<n;i++)
+        {
+            mx=max(mx,mxareahis(M[i],m));
+            
+        }
+        
+        
+        return mx;
+        
+        
+        
+    }
+};

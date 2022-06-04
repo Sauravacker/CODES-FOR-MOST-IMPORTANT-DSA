@@ -1,0 +1,51 @@
+//SOLUTION BY CHANGING THE ARRAY BUT FASSTES
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int x=nums[0];
+        
+        while(x!=nums[x])
+        {swap(x,nums[x]);}
+        
+        return x;
+        
+    }
+};
+
+
+
+
+//SOLUTION BY BINARY SEARCH NLOGN BUT WITHOUT CHANGING THE ARRAY
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        
+        
+        int lo=1,hi=n-1;
+        
+        int ans=-1;
+        
+        while(lo<=hi)
+        {
+            int mid=(lo+hi)/2;
+            
+            int cn=0;
+            for(int i=0;i<n;i++)
+                if(nums[i]<=mid)cn++;
+            
+            
+            if(cn<=mid)
+            {lo=mid+1;}
+            else
+            {hi=mid-1;ans=mid;}
+        }
+        
+        
+        return ans;
+        
+  
+        
+    }
+};
