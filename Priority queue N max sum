@@ -1,0 +1,44 @@
+class three{
+    public:
+    int val,i,j;
+};
+
+struct cmp{
+    bool operator()(three a,three b)
+    {
+        return a.val<b.val;
+    }
+};
+vector<int> Solution::solve(vector<int> &A, vector<int> &B) {
+    
+    vector<int> ans;
+    int n=A.size();
+    int m=B.size();
+    int i=n-1,j=m-1;
+    sort(A.begin(),A.end());
+    sort(B.begin(),B.end());
+    
+    priority_queue<three,vector<three>,cmp> pq;
+    
+    three x;
+    x.val=A[i]+B[j];x.i=i;x.j=j;
+    pq.push(x);
+    set<pair<int,int>> s;
+    s.insert({i,j});
+    while(ans.size()<n)
+    {
+        x=pq.top();
+        int val=x.val;
+        int i=x.i,j=x.j;
+        ans.push_back(val);
+        pq.pop();
+        if(i>0 && s.find({i-1,j})==s.end())
+        {pq.push({A[i-1]+B[j],i-1,j});s.insert({i-1,j});}
+        if(j>0 && s.find({i,j-1})==s.end())
+        {pq.push({A[i]+B[j-1],i,j-1});s.insert({i,j-1});}
+        
+    }
+    
+    return ans;
+    
+}
